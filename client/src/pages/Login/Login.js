@@ -3,13 +3,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { app } from "../../firebase.config";
 
-const Login = () => {
+const Login = (props) => {
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
-
+  const volWorkName = props.volWorkName;
   const handleLogin = () => {
     const auth = getAuth(app);
-    const volWorkName = sessionStorage.getItem('volWorkName');
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -17,8 +16,8 @@ const Login = () => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        sessionStorage.setItem('accessToken', user.accessToken);
-       volWorkName ?  navigate(`/form/${volWorkName}`) : navigate('/dashboard') ;
+        sessionStorage.setItem("accessToken", user.accessToken);
+        volWorkName ? navigate(`/form/${volWorkName}`) : navigate("/dashboard");
         console.log(user);
         // ...
       })
@@ -35,8 +34,8 @@ const Login = () => {
   };
   return (
     <div>
-      this is login page
-      <button onClick={handleLogin}>Login</button>
+      
+      <button className="bg-slate-300 p-4 "onClick={handleLogin}>Login</button>
     </div>
   );
 };
