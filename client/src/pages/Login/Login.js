@@ -1,5 +1,10 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import React from "react";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup
+} from "firebase/auth";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { app } from "../../firebase.config";
 
@@ -16,7 +21,7 @@ const Login = (props) => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        sessionStorage.setItem("accessToken", user.accessToken);
+        // sessionStorage.setItem("accessToken", user.accessToken);
         volWorkName ? navigate(`/form/${volWorkName}`) : navigate("/dashboard");
         console.log(user);
         // ...
@@ -32,10 +37,28 @@ const Login = (props) => {
         // ...
       });
   };
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        user.getIdToken()
+        .then(token => {
+          console.log(token);
+        })
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  }, []);
   return (
     <div>
-      
-      <button className="bg-slate-300 p-4 "onClick={handleLogin}>Login</button>
+      <button className="bg-slate-300 p-4 " onClick={handleLogin}>
+        Login
+      </button>
     </div>
   );
 };
