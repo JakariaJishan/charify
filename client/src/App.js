@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AdminHome from "./pages/Admin/AdminHome/AdminHome";
 import Home from "./pages/Home/Home/Home";
 import Navbar from "./pages/Home/Navbar/Navbar";
 import Login from "./pages/Login/Login";
@@ -22,6 +23,7 @@ function App() {
               element={<VolunteersForm volWorkName={volWorkName} />}
             />
             <Route path="/dashboard" element={<VolunteerDash />} />
+            <Route path="/admin/*" element={<AdminHome />} />
           </Route>
         </Routes>
       </BrowserRouter>

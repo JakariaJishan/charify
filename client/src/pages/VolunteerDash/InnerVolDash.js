@@ -1,10 +1,17 @@
+import moment from 'moment';
 import React from "react";
 
 const InnerVolDash = (props) => {
-  const { Name, startDate, img } = props.user;
-  const handleDelete = () => {
-console.log("handle deleted")
-  }
+  const { org, startDate, img , _id} = props.user;
+  const handleDelete = (id) => {
+    fetch(`http://localhost:5000/api/user/delete/${id}`,{
+      method: 'DELETE',
+    })
+    .then((res) => res.json())
+    .then(data=> {
+      console.log(data)
+    })
+  };
   return (
     <div>
       <section class="text-gray-600 body-font">
@@ -18,15 +25,12 @@ console.log("handle deleted")
                   src={img}
                 />
                 <div class="flex-grow">
-                  <h2 class="text-gray-900 title-font font-medium">{Name}</h2>
-                  <p class="text-gray-500">{startDate}</p>
+                  <h2 class="text-gray-900 title-font font-medium">{org}</h2>
+                  <p class="text-gray-500">{ moment(startDate).format('D MMMM, YYYY')}</p>
                 </div>
-                  <button onClick={handleDelete}>Cancle</button>
+                <button onClick={()=>handleDelete(_id)}>Cancle</button>
               </div>
             </div>
-            
-
-            
           </div>
         </div>
       </section>

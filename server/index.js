@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const port = 5000;
 const cors = require("cors");
 const admin = require("firebase-admin");
+const ObjectId = require("mongodb").ObjectId;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -66,6 +67,12 @@ client.connect((err) => {
     }
    
   });
+  app.delete('/api/user/delete/:id', (req, res) => {
+    const id = req.params.id;
+    charityCollection.deleteOne({_id: ObjectId(id)}).then(() =>{
+      console.log("success")
+    })
+  })
 });
 
 app.listen(port, () => {
