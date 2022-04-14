@@ -7,7 +7,7 @@ const InnerVolunteers = (props) => {
   const setVolWorkName = useContext(userContext);
   return (
     <div>
-      <Link to ={`/form/${name}`} onClick={() => setVolWorkName(name)} >
+      <Link to ={`/form/${name}`} onClick={() => setVolWorkName([name,img])} >
         <div >
           <img src={img} width="100%" alt={name}/>
           <p>{name}</p>

@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const VolunteersForm = () => {
+const VolunteersForm = (props) => {
+  const navigate = useNavigate()
   const param = useParams();
   const displayName = sessionStorage.getItem("displayName");
   const email = sessionStorage.getItem("email");
   const [startDate, setStartDate] = useState(new Date());
-
+  const img = props.volWorkName[1];
   const {
     register,
     handleSubmit,
@@ -17,10 +18,11 @@ const VolunteersForm = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-   const newData = {
-      ...data, startDate
+    const newData = {
+      ...data,
+      startDate,
+      img,
     };
-    console.log(newData);
     fetch("http://localhost:5000/api/user/info", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -30,6 +32,8 @@ const VolunteersForm = () => {
       .then((result) => {
         console.log(result);
       });
+      alert(`successfully done! go to dashboard`);
+
   };
   return (
     <div className="grid place-items-center bg-slate-500 ">
@@ -44,7 +48,10 @@ const VolunteersForm = () => {
           {...register("description", { required: true })}
           placeholder="description"
         />
-            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+        />
 
         <input
           {...register("org", { required: true })}
@@ -52,7 +59,7 @@ const VolunteersForm = () => {
           value={param.id}
         />
 
-        <button type="submit">submit</button>
+        <button type="submit" onClick={(e) => navigate('/dashboard')}>submit</button>
       </form>
     </div>
   );

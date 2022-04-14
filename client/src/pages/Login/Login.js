@@ -20,10 +20,11 @@ const Login = (props) => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        fireAuthToken();
         sessionStorage.setItem("accessToken", user.accessToken);
         sessionStorage.setItem("displayName", user.displayName);
         sessionStorage.setItem("email", user.email);
-        volWorkName ? navigate(`/form/${volWorkName}`) : navigate("/dashboard");
+        volWorkName ? navigate(`/form/${volWorkName[0]}`) : navigate("/dashboard");
         console.log(user);
         // ...
       })
@@ -38,7 +39,11 @@ const Login = (props) => {
         // ...
       });
   };
-  
+  const fireAuthToken = () => {
+    getAuth().currentUser.getIdToken(true).then((idToken) => {
+      sessionStorage.setItem("accessToken", idToken);
+    })
+  }
   return (
     <div>
       <button className="bg-slate-300 p-4 " onClick={handleLogin}>

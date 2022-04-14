@@ -1,88 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import InnerVolDash from "./InnerVolDash";
 
 const VolunteerDash = () => {
+  const [userInfo, setUserInfo] = useState([]);
+  const email = sessionStorage.getItem("email");
+  useEffect(() => {
+    fetch("http://localhost:5000/api/user/dashboard?email=" + email, {
+      headers: {
+        headers: {"Content-Type": "application/json"},
+        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((results) => setUserInfo(results));
+  }, []);
   return (
     <div>
-      <section class="text-gray-600 body-font">
-        <div class="container px-5 py-24 mx-auto">
-          <div class="flex flex-wrap -m-2">
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-                <img
-                  alt="team"
-                  class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                  src="https://dummyimage.com/90x90"
-                />
-                <div class="flex-grow">
-                  <h2 class="text-gray-900 title-font font-medium">John Doe</h2>
-                  <p class="text-gray-500">DevOps</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-                <img
-                  alt="team"
-                  class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                  src="https://dummyimage.com/94x94"
-                />
-                <div class="flex-grow">
-                  <h2 class="text-gray-900 title-font font-medium">
-                    Martin Eden
-                  </h2>
-                  <p class="text-gray-500">Software Engineer</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-                <img
-                  alt="team"
-                  class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                  src="https://dummyimage.com/100x90"
-                />
-                <div class="flex-grow">
-                  <h2 class="text-gray-900 title-font font-medium">
-                    Atticus Finch
-                  </h2>
-                  <p class="text-gray-500">QA Engineer</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-                <img
-                  alt="team"
-                  class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                  src="https://dummyimage.com/104x94"
-                />
-                <div class="flex-grow">
-                  <h2 class="text-gray-900 title-font font-medium">
-                    Alper Kamu
-                  </h2>
-                  <p class="text-gray-500">System</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-                <img
-                  alt="team"
-                  class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                  src="https://dummyimage.com/108x98"
-                />
-                <div class="flex-grow">
-                  <h2 class="text-gray-900 title-font font-medium">
-                    Rodrigo Monchi
-                  </h2>
-                  <p class="text-gray-500">Product Manager</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {userInfo.map((user) => (
+        <InnerVolDash user={user} key={Math.random()}></InnerVolDash>
+      ))}
     </div>
   );
 };
