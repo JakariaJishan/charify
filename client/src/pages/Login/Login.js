@@ -24,7 +24,8 @@ const Login = (props) => {
         sessionStorage.setItem("accessToken", user.accessToken);
         sessionStorage.setItem("displayName", user.displayName);
         sessionStorage.setItem("email", user.email);
-        volWorkName ? navigate(`/form/${volWorkName[0]}`) : navigate("/dashboard");
+        console.log(volWorkName)
+        volWorkName['']=== undefined ?navigate("/dashboard") : navigate(`/form/${volWorkName[0]}`) ;
         console.log(user);
         // ...
       })
