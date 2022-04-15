@@ -8,7 +8,7 @@ const AdminHome = () => {
     <div>
       <Sidebar />
       <Routes>
-        <Route path="/register-list" element={<RegisterList />} />
+        <Route path="/" element={<RegisterList />} />
       </Routes>
     </div>
   );

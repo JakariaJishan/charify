@@ -67,10 +67,24 @@ client.connect((err) => {
     }
    
   });
+
   app.delete('/api/user/delete/:id', (req, res) => {
     const id = req.params.id;
     charityCollection.deleteOne({_id: ObjectId(id)}).then(() =>{
       console.log("success")
+    })
+  })
+
+  app.delete('/api/user/info/delete-user:id', (req, res) => {
+    const id = req.params.id;
+    charityCollection.deleteOne({_id: ObjectId(id)}).then(() =>{
+      console.log("success")
+    })
+  })
+
+  app.get('/api/user/info/total-user', (req, res) => {
+    charityCollection.find({}).toArray((err, document) => {
+      res.send(document);
     })
   })
 });

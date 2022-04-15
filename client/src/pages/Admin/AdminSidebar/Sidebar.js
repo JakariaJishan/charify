@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
     return (
         <div>
-            <Link to='/admin/register-list' >
+            <Link to='/admin/' >
                 volunteers register list
             </Link>
             <br />
