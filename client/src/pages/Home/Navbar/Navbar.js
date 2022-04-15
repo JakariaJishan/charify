@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const handleLogOut = () => {
+    sessionStorage.clear();
+  }
   return (
     <div>
       <header class="text-gray-600 body-font">
@@ -19,7 +22,7 @@ const Navbar = () => {
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
-            <span class="ml-3 text-xl">Tailblocks</span>
+            <Link to="/"class="ml-3 text-xl">Tailblocks</Link>
           </a>
           <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
             <a class="mr-5 hover:text-gray-900">First Link</a>
@@ -55,6 +58,7 @@ const Navbar = () => {
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
           </Link>
+          <button onClick={handleLogOut}>log out</button>
         </div>
       </header>
     </div>

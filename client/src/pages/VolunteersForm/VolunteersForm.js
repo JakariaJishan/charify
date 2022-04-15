@@ -23,6 +23,7 @@ const VolunteersForm = (props) => {
       startDate,
       img,
     };
+    console.log(data);
     fetch("http://localhost:5000/api/user/info", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -59,7 +60,7 @@ const VolunteersForm = (props) => {
           value={param.id}
         />
 
-        <button type="submit" onClick={(e) => navigate('/dashboard')}>submit</button>
+        <button type="submit" >submit</button>
       </form>
     </div>
   );
